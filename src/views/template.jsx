@@ -1,7 +1,7 @@
 var React = require('react');
 var log = require('../util/utility');
 
-module.exports = React.createClass({
+var Template = React.createClass({
 	
 	/**
 	 * componentDidMount - function is called when a component is
@@ -34,3 +34,5 @@ module.exports = React.createClass({
     	);
     }
 });
+
+module.exports = Template;

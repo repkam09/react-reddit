@@ -1,14 +1,18 @@
 var React = require('react');
 var log = require('../util/utility');
 
-module.exports = React.createClass({
+var HeaderView = require('./header');
+var FooterView = require('./footer');
+var ContentView = require('./content');
+
+var MainView = React.createClass({
 	
 	/**
 	 * componentDidMount - function is called when a component is
 	 * mounted into the DOM.
 	 */
     componentDidMount: function() {
-        log.verbose('template.jsx - componentDidMount');
+        log.verbose('main.jsx - componentDidMount');
     },
 	
 	/**
@@ -16,7 +20,7 @@ module.exports = React.createClass({
 	 * about to be unmounted from the DOM.
 	 */
     componentWillUnmount: function() {
-        log.verbose('template.jsx - componentWillUnmount');
+        log.verbose('main.jsx - componentWillUnmount');
     },
     
 	
@@ -25,12 +29,14 @@ module.exports = React.createClass({
 	 * view of the react component
 	 */
     render: function() {
-        log.verbose('template.jsx - render() ');
+        log.verbose('main.jsx - render() ');
 		
         return (
             <div>
-            
-			 </div>
+				<ContentView />				
+			</div>
     	);
     }
 });
+
+module.exports = MainView;
