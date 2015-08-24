@@ -1,5 +1,3 @@
-var reddit = require('../testjson');
-
 module.exports = {
 
     verbose: function (message) {
@@ -8,22 +6,22 @@ module.exports = {
 
     getPage: function (url) {
         return new Promise(function (resolve, reject) {
-            var url = 'https://www.reddit.com/r/aww/';
+            var url = 'https://www.reddit.com/r/aww/.json';
 
-            $.ajax({
+            var request = $.ajax({
                 type: 'GET',
                 url: "https://repkam09.com/repserv/corsget/" + btoa(url),
-                async: true,
-                success: function (json) {
-                    debugger;
-                    resolve(json);
-                },
-                error: function (e) {
-                    console.log(e.message);
-                    reject(e);
-                }
+                async: true
             });
+
+            request.done(function (response) {
+                var json = JSON.parse(atob(response));		
+				resolve(json);
+			});
+
+			request.fail(function (jqXHR, textStatus) {
+				reject(textStatus);
+			});
         });
     }
-
 };

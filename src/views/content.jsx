@@ -18,8 +18,7 @@ var ContentView = React.createClass({
 		
 		var self = this;
 		log.getPage().then(function(result) {
-			var posts = result.data.children;
-			self.setState({ posts: posts });
+			self.setState({ posts: result.data.children });
 		});
     },
 	
