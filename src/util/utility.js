@@ -6,7 +6,7 @@ module.exports = {
 
     getPage: function (url) {
         return new Promise(function (resolve, reject) {
-            var url = 'https://www.reddit.com/r/aww/.json?limit=2';
+            var url = 'https://www.reddit.com/r/pics/.json';
 
             var request = $.ajax({
                 type: 'GET',
@@ -15,7 +15,7 @@ module.exports = {
             });
 
             request.done(function (response) {
-				resolve(JSON.parse(response));
+				resolve(response);
 			});
 
 			request.fail(function (jqXHR, textStatus) {

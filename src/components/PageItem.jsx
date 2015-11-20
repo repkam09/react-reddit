@@ -3,9 +3,8 @@ var log = require('../util/utility');
 
 var PageItem = React.createClass({
 
-
 	getInitialState: function() {
-        return {url: "undefined", author: "undefined", title: "undefined", subreddit: "undefined", time: "undefined", id: "undefined"};
+        return {showcontent: false};
     },
 
 	/**
@@ -13,17 +12,15 @@ var PageItem = React.createClass({
 	 * mounted into the DOM.
 	 */
     componentDidMount: function() {
-		var data = this.props.obj.data;
-
-		var postUrl = data.url;
-		var postAuthor = data.author;
-		var postTitle = data.title;
-		var postId = data.id;
-		var postTime = data.created;
-		var postSub = data.subreddit;
-
-		log.verbose('PageItem.jsx - componentDidMount ' + postId);
-		this.setState({ url: postUrl, author: postAuthor, title: postTitle, subreddit: postSub, time: postTime, id: postId });
+        log.verbose('PageItem.jsx - componentDidMount');
+        if (this.props.obj.domain.indexOf("i.imgur.com") > -1) {
+            // This is a post to an imgur link
+            console.log("This post is an imgur link. " + this.props.obj.domain);
+            this.setState({showcontent: !this.state.showcontent});
+        } else {
+            console.log("This post is not an imgur link. " + this.props.obj.domain);
+            this.setState({showcontent: false});
+        }
     },
 
 	/**
@@ -35,7 +32,14 @@ var PageItem = React.createClass({
     },
 
 	expandText: function(event) {
-		log.verbose("got click on " + event.currentTarget.id);
+        if (this.props.obj.domain.indexOf("i.imgur.com") > -1) {
+            // This is a post to an imgur link
+            console.log("This post is an imgur link. " + this.props.obj.domain);
+            this.setState({showcontent: !this.state.showcontent});
+        } else {
+            console.log("This post is not an imgur link. " + this.props.obj.domain);
+            this.setState({showcontent: false});
+        }
 	},
 
 	/**
@@ -44,15 +48,43 @@ var PageItem = React.createClass({
 	 */
     render: function() {
         log.verbose('PageItem.jsx - render() ');
+        var data = this.props.obj;
+
+        var timestring = null;
+        var datestring = null;
+
+        if (data.created_utc) {
+            var dateobj = new Date(data.created_utc * 1000);
+            datestring = dateobj.toDateString();
+            timestring = dateobj.toTimeString();
+        }
+
+        var content = null;
+        if (this.state.showcontent) {
+            content = (
+                <img src={data.url} height="300" />
+            );
+        }
 
         return (
-            <div className="redditPost">
-				<h3 id={this.state.id} onClick={this.expandText}> {this.state.title} </h3>
-				<p id={this.state.id}> {this.state.url} </p>
-				By {this.state.author} at {this.state.time} in {this.state.subreddit}
+            <div className="reddit-post">
+                <div className="post-content">
+                    <h3 id={data.id} onClick={this.expandText}> {data.title} </h3>
+                    <p id={data.id}> {data.url} </p>
+                    {content}
+                    <p>Posted {datestring} at {timestring} by {data.author} in /r/{data.subreddit}</p>
+                </div>
 			</div>
     	);
     }
 });
 
 module.exports = PageItem;
+
+
+/*
+ <h3 id={this.state.id} onClick={this.expandText}> {this.state.title} </h3>
+<p id={this.state.id}> {this.state.url} </p>
+Posted {datestring} at {timestring} by {this.state.author} at  in {this.state.subreddit}
+
+*/

@@ -23,3 +23,16 @@ body
 	color: black;
 }
 
+.reddit-post {
+    background: lightgray;
+}
+
+.reddit-post:nth-child(even) {
+    background: lightslategray;
+}
+
+.post-content {
+    padding: 0.8em;
+}
+
+

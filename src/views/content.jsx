@@ -40,9 +40,7 @@ var ContentView = React.createClass({
 		var content = this.state.posts.map(function(post) {
 			var postKey = post.data.created + "" + post.data.id;
 			return (
-				<div>
-					<PageItem obj={ post } key={postKey} />
-				</div>
+					<PageItem obj={ post.data } key={postKey} />
 			);
 		});
 
