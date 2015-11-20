@@ -2,7 +2,7 @@ html, body
 {
 	height: 100%;
 }
-	
+
 
 h1, h2, h3
 {
@@ -15,7 +15,7 @@ h1, h2, h3
 body
 {
 	margin: 0px;
-	padding: 50px;
+	padding: 10px;
 	background: white;
 	font-family: 'Varela', sans-serif;
 	font-size: 11pt;

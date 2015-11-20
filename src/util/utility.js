@@ -6,17 +6,16 @@ module.exports = {
 
     getPage: function (url) {
         return new Promise(function (resolve, reject) {
-            var url = 'https://www.reddit.com/r/aww/.json';
+            var url = 'https://www.reddit.com/r/aww/.json?limit=2';
 
             var request = $.ajax({
                 type: 'GET',
-                url: "https://repkam09.com/repserv/corsget/" + btoa(url),
+                url: url,
                 async: true
             });
 
             request.done(function (response) {
-                var json = JSON.parse(atob(response));		
-				resolve(json);
+				resolve(JSON.parse(response));
 			});
 
 			request.fail(function (jqXHR, textStatus) {
