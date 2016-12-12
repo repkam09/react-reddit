@@ -35,10 +35,10 @@ var PageItem = React.createClass({
         if (this.props.obj.domain.indexOf("i.imgur.com") > -1) {
             // This is a post to an imgur link
             console.log("This post is an imgur link. " + this.props.obj.domain);
-            //this.setState({ showcontent: !this.state.showcontent });
+            this.setState({ showcontent: false });
         } else {
             console.log("This post is not an imgur link. " + this.props.obj.domain);
-            //this.setState({ showcontent: false });
+            this.setState({ showcontent: false });
         }
     },
 
