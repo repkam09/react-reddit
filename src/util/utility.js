@@ -6,7 +6,7 @@ module.exports = {
 
     getPage: function (url) {
         return new Promise(function (resolve, reject) {
-            var url = 'https://www.reddit.com/r/pics/.json';
+            var url = 'https://api.repkam09.com/api/reddit/posts/wallpaper';
 
             var request = $.ajax({
                 type: 'GET',
@@ -15,12 +15,12 @@ module.exports = {
             });
 
             request.done(function (response) {
-				resolve(response);
-			});
+                resolve(response);
+            });
 
-			request.fail(function (jqXHR, textStatus) {
-				reject(textStatus);
-			});
+            request.fail(function (jqXHR, textStatus) {
+                reject(textStatus);
+            });
         });
     }
 };

@@ -3,23 +3,23 @@ var log = require('../util/utility');
 
 var PageItem = React.createClass({
 
-	getInitialState: function() {
-        return {showcontent: false};
+    getInitialState: function () {
+        return { showcontent: false };
     },
 
 	/**
 	 * componentDidMount - function is called when a component is
 	 * mounted into the DOM.
 	 */
-    componentDidMount: function() {
+    componentDidMount: function () {
         log.verbose('PageItem.jsx - componentDidMount');
         if (this.props.obj.domain.indexOf("i.imgur.com") > -1) {
             // This is a post to an imgur link
             console.log("This post is an imgur link. " + this.props.obj.domain);
-            this.setState({showcontent: !this.state.showcontent});
+            this.setState({ showcontent: !this.state.showcontent });
         } else {
             console.log("This post is not an imgur link. " + this.props.obj.domain);
-            this.setState({showcontent: false});
+            this.setState({ showcontent: false });
         }
     },
 
@@ -27,26 +27,26 @@ var PageItem = React.createClass({
 	 * componentWillUnmount - function is called when a component is
 	 * about to be unmounted from the DOM.
 	 */
-    componentWillUnmount: function() {
+    componentWillUnmount: function () {
         log.verbose('PageItem.jsx - componentWillUnmount');
     },
 
-	expandText: function(event) {
+    expandText: function (event) {
         if (this.props.obj.domain.indexOf("i.imgur.com") > -1) {
             // This is a post to an imgur link
             console.log("This post is an imgur link. " + this.props.obj.domain);
-            this.setState({showcontent: !this.state.showcontent});
+            this.setState({ showcontent: !this.state.showcontent });
         } else {
             console.log("This post is not an imgur link. " + this.props.obj.domain);
-            this.setState({showcontent: false});
+            this.setState({ showcontent: false });
         }
-	},
+    },
 
 	/**
 	 * This function is written in JSX syntax to provide an HTML-like
 	 * view of the react component
 	 */
-    render: function() {
+    render: function () {
         log.verbose('PageItem.jsx - render() ');
         var data = this.props.obj;
 
@@ -61,8 +61,15 @@ var PageItem = React.createClass({
 
         var content = null;
         if (this.state.showcontent) {
+            // Handle the URL rewrite to repkam09 api
+            var parts = data.url.split("/");
+            var imgid = parts[parts.length - 1];
+            var id = imgid.split(".")[0];
+
+            var url = "https://api.repkam09.com/api/imgur/" + id;
+
             content = (
-                <img src={data.url} height="300" />
+                <img src={url} height="300" />
             );
         }
 
@@ -74,8 +81,8 @@ var PageItem = React.createClass({
                     {content}
                     <p>Posted {datestring} at {timestring} by {data.author} in /r/{data.subreddit}</p>
                 </div>
-			</div>
-    	);
+            </div>
+        );
     }
 });
 

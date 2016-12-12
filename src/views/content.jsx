@@ -5,19 +5,19 @@ var PageItem = require('../components/PageItem');
 
 var ContentView = React.createClass({
 
-    getInitialState: function() {
-        return {posts: []};
+    getInitialState: function () {
+        return { posts: [] };
     },
 
 	/**
 	 * componentDidMount - function is called when a component is
 	 * mounted into the DOM.
 	 */
-    componentDidMount: function() {
+    componentDidMount: function () {
         log.verbose('content.jsx - componentDidMount');
 
 		var self = this;
-		log.getPage().then(function(result) {
+		log.getPage().then(function (result) {
 			self.setState({ posts: result.data.children });
 		});
     },
@@ -26,7 +26,7 @@ var ContentView = React.createClass({
 	 * componentWillUnmount - function is called when a component is
 	 * about to be unmounted from the DOM.
 	 */
-    componentWillUnmount: function() {
+    componentWillUnmount: function () {
         log.verbose('content.jsx - componentWillUnmount');
     },
 
@@ -35,12 +35,12 @@ var ContentView = React.createClass({
 	 * This function is written in JSX syntax to provide an HTML-like
 	 * view of the react component
 	 */
-    render: function() {
+    render: function () {
 
-		var content = this.state.posts.map(function(post) {
+		var content = this.state.posts.map(function (post) {
 			var postKey = post.data.created + "" + post.data.id;
 			return (
-					<PageItem obj={ post.data } key={postKey} />
+				<PageItem obj={ post.data } key={postKey} />
 			);
 		});
 
@@ -49,9 +49,9 @@ var ContentView = React.createClass({
 
         return (
             <div>
-            	{content}
+				{content}
 			</div>
-    	);
+		);
     }
 });
 
