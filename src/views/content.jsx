@@ -5,54 +5,55 @@ var PageItem = require('../components/PageItem');
 
 var ContentView = React.createClass({
 
-    getInitialState: function () {
-        return { posts: [] };
-    },
+	getInitialState: function () {
+		return { posts: [] };
+	},
 
 	/**
 	 * componentDidMount - function is called when a component is
 	 * mounted into the DOM.
 	 */
-    componentDidMount: function () {
-        log.verbose('content.jsx - componentDidMount');
+	componentDidMount: function () {
+		log.verbose('content.jsx - componentDidMount');
 
 		var self = this;
 		log.getPage().then(function (result) {
-			self.setState({ posts: result.data.children });
+			var results = JSON.parse(result);
+			self.setState({ posts: results.data.children });
 		});
-    },
+	},
 
 	/**
 	 * componentWillUnmount - function is called when a component is
 	 * about to be unmounted from the DOM.
 	 */
-    componentWillUnmount: function () {
-        log.verbose('content.jsx - componentWillUnmount');
-    },
+	componentWillUnmount: function () {
+		log.verbose('content.jsx - componentWillUnmount');
+	},
 
 
 	/**
 	 * This function is written in JSX syntax to provide an HTML-like
 	 * view of the react component
 	 */
-    render: function () {
+	render: function () {
 
 		var content = this.state.posts.map(function (post) {
 			var postKey = post.data.created + "" + post.data.id;
 			return (
-				<PageItem obj={ post.data } key={postKey} />
+				<PageItem obj={post.data} key={postKey} />
 			);
 		});
 
 
-        log.verbose('content.jsx - render() ');
+		log.verbose('content.jsx - render() ');
 
-        return (
-            <div>
+		return (
+			<div>
 				{content}
 			</div>
 		);
-    }
+	}
 });
 
 module.exports = ContentView;
