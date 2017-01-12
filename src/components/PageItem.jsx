@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactMarkdown = require('react-markdown');
 var log = require('../util/utility');
 
 var PageItem = React.createClass({
@@ -12,13 +13,13 @@ var PageItem = React.createClass({
 	 * mounted into the DOM.
 	 */
     componentDidMount: function () {
-        log.verbose('PageItem.jsx - componentDidMount');
+        //log.verbose('PageItem.jsx - componentDidMount');
         if (this.props.obj.domain.indexOf("i.imgur.com") > -1) {
             // This is a post to an imgur link
-            console.log("This post is an imgur link. " + this.props.obj.domain);
-            this.setState({ showcontent: true });
+            //console.log("This post is an imgur link. " + this.props.obj.domain);
+            this.setState({ showcontent: false });
         } else {
-            console.log("This post is not an imgur link. " + this.props.obj.domain);
+            //console.log("This post is not an imgur link. " + this.props.obj.domain);
             this.setState({ showcontent: false });
         }
     },
@@ -50,6 +51,11 @@ var PageItem = React.createClass({
         log.verbose('PageItem.jsx - render() ');
         var data = this.props.obj;
 
+        var selftext = null;
+        if (data.is_self) {
+            selftext = <ReactMarkdown source={data.selftext} />
+        }
+
         var timestring = null;
         var datestring = null;
 
@@ -77,9 +83,12 @@ var PageItem = React.createClass({
             <div className="reddit-post">
                 <div className="post-content">
                     <h3 id={data.id} onClick={this.expandText}> {data.title} </h3>
-                    <p id={data.id}> {data.url} </p>
+                    <a href={data.url} id={data.id}> {data.url} </a>
                     {content}
-                    <p>Posted {datestring} at {timestring} by {data.author} in /r/{data.subreddit}</p>
+                    <div className="self-text">
+                        {selftext}
+                    </div>
+                    <small>Posted {datestring} at {timestring} by {data.author} in /r/{data.subreddit}</small>
                 </div>
             </div>
         );

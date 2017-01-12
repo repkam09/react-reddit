@@ -16,8 +16,18 @@ var ContentView = React.createClass({
 	componentDidMount: function () {
 		log.verbose('content.jsx - componentDidMount');
 
+        // Get the URL params to check the username to load.
+        var subreddit = getParameterByName('sub');
+		var sub = 'askreddit';
+        if (subreddit) {
+            sub = subreddit;
+        }
+
+		// Set the page title to match
+		document.title = "/r/" + sub;
+
 		var self = this;
-		log.getPage().then(function (result) {
+		log.getPage("https://api.repkam09.com/api/reddit/posts/" + sub).then(function (result) {
 			var results = JSON.parse(result);
 			self.setState({ posts: results.data.children });
 		});
@@ -57,3 +67,16 @@ var ContentView = React.createClass({
 });
 
 module.exports = ContentView;
+
+
+function getParameterByName(name, url) {
+    if (!url) {
+        url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}

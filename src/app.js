@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var view = require('./views/main');
 
 window.getreq = function (url) {
@@ -25,4 +26,4 @@ require('./views/footer');
 require('./views/content');
 
 var app = React.createElement(view);
-React.render(app, document.getElementById('app'));
+ReactDOM.render(app, document.getElementById('app'));

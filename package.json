@@ -4,8 +4,11 @@
   "description": "reddit.com client using reactjs",
   "main": "app.js",
   "dependencies": {
-    "react": "^0.13.3",
-    "flux": "^2.0.3"
+    "flux": "^2.0.3",
+    "gulp-sourcemaps": "^2.4.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-markdown": "^2.4.2"
   },
   "devDependencies": {
     "browserify": "^10.2.4",
@@ -20,7 +23,7 @@
     "clean": "rm -rf ./build"
   },
   "repository": {
-    "type": "git"    
+    "type": "git"
   },
   "author": "Mark R. Repka",
   "license": "MIT"
